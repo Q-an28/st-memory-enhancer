@@ -1,0 +1,272 @@
+/* Memory Enhancer plugin styling */
+
+.memory-enhancer-settings {
+    font-family: 'Arial', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color: var(--SmartThemeBodyColor);
+}
+
+.memory-enhancer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--SmartThemeBorderColor);
+}
+
+.memory-enhancer-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: var(--SmartThemeHeaderColor);
+}
+
+.memory-enhancer-version {
+    font-size: 0.8em;
+    color: var(--SmartThemeBodyColor);
+    opacity: 0.7;
+}
+
+.memory-enhancer-section {
+    margin-bottom: 30px;
+    background-color: var(--SmartThemeBodyColor, rgba(0, 0, 0, 0.05));
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.memory-enhancer-section h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: var(--SmartThemeHeaderColor);
+}
+
+.memory-enhancer-setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.memory-enhancer-setting:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.memory-enhancer-setting label {
+    flex: 1;
+    font-weight: normal;
+}
+
+.memory-enhancer-tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--SmartThemeBorderColor);
+}
+
+.memory-enhancer-tab {
+    padding: 8px 15px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: var(--SmartThemeBodyColor);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.memory-enhancer-tab:hover {
+    opacity: 1;
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.memory-enhancer-tab.active {
+    opacity: 1;
+    border-bottom: 2px solid var(--SmartThemeHighlightColor, #007bff);
+    font-weight: bold;
+}
+
+.memory-enhancer-tab-content {
+    display: none;
+}
+
+.memory-enhancer-tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.memory-enhancer-form-group {
+    margin-bottom: 15px;
+}
+
+.memory-enhancer-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.memory-enhancer-form-group input,
+.memory-enhancer-form-group select,
+.memory-enhancer-form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--SmartThemeBorderColor, #ccc);
+    border-radius: 4px;
+    background-color: var(--SmartThemeInputColor, white);
+    color: var(--SmartThemeInputTextColor, black);
+}
+
+.memory-enhancer-form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.memory-enhancer-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.memory-enhancer-buttons button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--SmartThemeButtonColor, #e0e0e0);
+    color: var(--SmartThemeButtonTextColor, black);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.memory-enhancer-buttons button:hover {
+    background-color: var(--SmartThemeButtonHoverColor, #d0d0d0);
+}
+
+.memory-enhancer-buttons button.danger {
+    background-color: var(--SmartThemeDangerColor, #dc3545);
+    color: white;
+}
+
+.memory-enhancer-buttons button.danger:hover {
+    background-color: var(--SmartThemeDangerHoverColor, #bd2130);
+}
+
+.memory-enhancer-entity-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--SmartThemeBorderColor, #ccc);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.memory-enhancer-empty-state {
+    text-align: center;
+    padding: 20px;
+    color: var(--SmartThemeBodyColor);
+    opacity: 0.7;
+}
+
+.memory-enhancer-entity-group {
+    margin-bottom: 15px;
+}
+
+.memory-enhancer-entity-group-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--SmartThemeBorderColor, rgba(128, 128, 128, 0.3));
+}
+
+.memory-enhancer-entity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px dashed rgba(128, 128, 128, 0.2);
+}
+
+.memory-enhancer-entity-item:last-child {
+    border-bottom: none;
+}
+
+.memory-enhancer-entity-value {
+    flex: 1;
+}
+
+.memory-enhancer-entity-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.memory-enhancer-entity-action {
+    padding: 2px 5px;
+    font-size: 0.8em;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: var(--SmartThemeButtonColor, #e0e0e0);
+    color: var(--SmartThemeButtonTextColor, black);
+}
+
+.memory-enhancer-entity-action.edit:hover {
+    background-color: var(--SmartThemeHighlightColor, #007bff);
+    color: white;
+}
+
+.memory-enhancer-entity-action.delete:hover {
+    background-color: var(--SmartThemeDangerColor, #dc3545);
+    color: white;
+}
+
+.memory-enhancer-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--SmartThemeBorderColor, rgba(128, 128, 128, 0.3));
+}
+
+.memory-enhancer-primary-btn {
+    padding: 10px 20px;
+    background-color: var(--SmartThemeHighlightColor, #007bff);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.memory-enhancer-primary-btn:hover {
+    background-color: var(--SmartThemeHighlightHoverColor, #0069d9);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .memory-enhancer-setting,
+    .memory-enhancer-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .memory-enhancer-setting label {
+        margin-bottom: 5px;
+    }
+    
+    .memory-enhancer-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Dark mode support is handled through CSS variables */

@@ -1,0 +1,20 @@
+{
+    "name": "Memory Enhancer",
+    "version": "1.0.0",
+    "description": "Advanced memory and context management for character interactions",
+    "author": "Vinfon",
+    "repository": "https://github.com/Vinfon/st-memory-enhancer",
+    "license": "MIT",
+    "tags": ["memory", "context", "user profile", "NER"],
+    "compatible": {
+      "sillytavern": ">=1.9.0"
+    },
+    "requires": [],
+    "load_after": [],
+    "entrypoint": "index.js",
+    "configurable": true,
+    "settings": "settings.html",
+    "allowEmptyConfig": false,
+    "autoLoad": true
+  }
+  

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<div class="memory-enhancer-settings">
+    <div class="memory-enhancer-header">
+        <h3>Memory Enhancer Settings</h3>
+        <div class="memory-enhancer-version">v1.0.0</div>
+    </div>
+    
+    <div class="memory-enhancer-section">
+        <h4>General Settings</h4>
+        
+        <div class="memory-enhancer-setting">
+            <label for="memory-enabled">Enable Memory Enhancement</label>
+            <input type="checkbox" id="memory-enabled" checked>
+        </div>
+        
+        <div class="memory-enhancer-setting">
+            <label for="auto-extract">Automatic Entity Extraction</label>
+            <input type="checkbox" id="auto-extract" checked>
+        </div>
+        
+        <div class="memory-enhancer-setting">
+            <label for="context-window">Context Window Size</label>
+            <input type="range" id="context-window" min="5" max="30" value="10">
+            <span id="context-window-display">10</span> messages
+        </div>
+    </div>
+    
+    <div class="memory-enhancer-section">
+        <h4>User Profile</h4>
+        
+        <div class="memory-enhancer-tabs">
+            <button class="memory-enhancer-tab active" data-tab="basic-info">Basic Info</button>
+            <button class="memory-enhancer-tab" data-tab="preferences">Preferences</button>
+            <button class="memory-enhancer-tab" data-tab="background">Background</button>
+        </div>
+        
+        <div class="memory-enhancer-tab-content active" id="basic-info">
+            <div class="memory-enhancer-form-group">
+                <label for="user-name">Name</label>
+                <input type="text" id="user-name" placeholder="Your name">
+            </div>
+            
+            <div class="memory-enhancer-form-group">
+                <label for="user-age">Age</label>
+                <input type="number" id="user-age" placeholder="Your age">
+            </div>
+            
+            <div class="memory-enhancer-form-group">
+                <label for="user-gender">Gender</label>
+                <select id="user-gender">
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-Binary</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="memory-enhancer-form-group">
+                <label for="user-location">Location</label>
+                <input type="text" id="user-location" placeholder="Your location">
+            </div>
+        </div>
+        
+        <div class="memory-enhancer-tab-content" id="preferences">
+            <div class="memory-enhancer-form-group">
+                <label for="user-interests">Interests</label>
+                <textarea id="user-interests" placeholder="Your interests (comma separated)"></textarea>
+            </div>
+            
+            <div class="memory-enhancer-form-group">
+                <label for="user-likes">Likes</label>
+                <textarea id="user-likes" placeholder="Things you like (comma separated)"></textarea>
+            </div>
+            
+            <div class="memory-enhancer-form-group">
+                <label for="user-dislikes">Dislikes</label>
+                <textarea id="user-dislikes" placeholder="Things you dislike (comma separated)"></textarea>
+            </div>
+        </div>
+        
+        <div class="memory-enhancer-tab-content" id="background">
+            <div class="memory-enhancer-form-group">
+                <label for="user-background">Personal Background</label>
+                <textarea id="user-background" placeholder="Brief description of your background" rows="5"></textarea>
+            </div>
+            
+            <div class="memory-enhancer-form-group">
+                <label for="user-goals">Goals</label>
+                <textarea id="user-goals" placeholder="Your personal goals" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div class="memory-enhancer-section">
+        <h4>Advanced Features</h4>
+        
+        <div class="memory-enhancer-setting">
+            <label for="relationship-tracking">Relationship Tracking</label>
+            <input type="checkbox" id="relationship-tracking" checked>
+        </div>
+        
+        <div class="memory-enhancer-setting">
+            <label for="hierarchical-memory">Hierarchical Memory</label>
+            <input type="checkbox" id="hierarchical-memory" checked>
+        </div>
+        
+        <div class="memory-enhancer-setting">
+            <label for="memory-depth">Memory Depth</label>
+            <input type="range" id="memory-depth" min="1" max="5" value="3">
+            <span id="memory-depth-display">3</span> levels
+        </div>
+        
+        <div class="memory-enhancer-setting">
+            <label for="sentiment-analysis">Sentiment Analysis</label>
+            <input type="checkbox" id="sentiment-analysis" checked>
+        </div>
+    </div>
+    
+    <div class="memory-enhancer-section">
+        <h4>Privacy & Security</h4>
+        
+        <div class="memory-enhancer-setting">
+            <label for="privacy-enabled">Enable Privacy Protection</label>
+            <input type="checkbox" id="privacy-enabled">
+        </div>
+        
+        <div class="memory-enhancer-setting" id="encryption-key-group">
+            <label for="encryption-key">Encryption Key</label>
+            <input type="password" id="encryption-key" placeholder="Enter encryption key">
+        </div>
+        
+        <div class="memory-enhancer-buttons">
+            <button id="export-data">Export Data</button>
+            <button id="import-data">Import Data</button>
+            <button id="clear-data" class="danger">Clear All Data</button>
+        </div>
+    </div>
+    
+    <div class="memory-enhancer-section">
+        <h4>Extracted Entities</h4>
+        <div class="memory-enhancer-entity-list" id="entity-list">
+            <div class="memory-enhancer-empty-state">No entities extracted yet</div>
+        </div>
+    </div>
+    
+    <div class="memory-enhancer-footer">
+        <button id="save-settings" class="memory-enhancer-primary-btn">Save Settings</button>
+        <button id="reset-settings">Reset to Default</button>
+    </div>
+</div>
+
+<script>
+    // Initialize settings page
+    $(document).ready(function() {
+        // Load settings
+        const settings = extension_settings.memory_enhancer || {};
+        
+        $('#memory-enabled').prop('checked', settings.enabled !== false);
+        $('#auto-extract').prop('checked', settings.autoExtract !== false);
+        $('#context-window').val(settings.contextWindow || 10);
+        $('#context-window-display').text(settings.contextWindow || 10);
+        $('#relationship-tracking').prop('checked', settings.relationshipTracking !== false);
+        $('#hierarchical-memory').prop('checked', settings.hierarchicalMemory !== false);
+        $('#memory-depth').val(settings.memoryDepth || 3);
+        $('#memory-depth-display').text(settings.memoryDepth || 3);
+        $('#sentiment-analysis').prop('checked', settings.sentimentAnalysis !== false);
+        $('#privacy-enabled').prop('checked', settings.privacyEnabled === true);
+        $('#encryption-key').val(settings.encryptionKey || '');
+        
+        // Load user profile
+        if (window.memoryEnhancerPlugin) {
+            const userProfile = window.memoryEnhancerPlugin.memoryEnhancer.userProfile;
+            
+            // Basic info
+            $('#user-name').val(userProfile.basicInfo.name || '');
+            $('#user-age').val(userProfile.basicInfo.age || '');
+            $('#user-gender').val(userProfile.basicInfo.gender || '');
+            $('#user-location').val(userProfile.basicInfo.location || '');
+            
+            // Preferences
+            $('#user-interests').val(userProfile.preferences.interests || '');
+            $('#user-likes').val(userProfile.preferences.likes || '');
+            $('#user-dislikes').val(userProfile.preferences.dislikes || '');
+            
+            // Background
+            $('#user-background').val(userProfile.background.description || '');
+            $('#user-goals').val(userProfile.background.goals || '');
+            
+            // Populate entity list
+            populateEntityList();
+        }
+        
+        // Handle range input changes
+        $('#context-window').on('input', function() {
+            $('#context-window-display').text($(this).val());
+        });
+        
+        $('#memory-depth').on('input', function() {
+            $('#memory-depth-display').text($(this).val());
+        });
+        
+        // Handle tab switching
+        $('.memory-enhancer-tab').click(function() {
+            $('.memory-enhancer-tab').removeClass('active');
+            $(this).addClass('active');
+            
+            const tabId = $(this).data('tab');
+            $('.memory-enhancer-tab-content').removeClass('active');
+            $(`#${tabId}`).addClass('active');
+        });
+        
+        // Toggle encryption key field visibility
+        $('#privacy-enabled').change(function() {
+            if ($(this).is(':checked')) {
+                $('#encryption-key-group').show();
+            } else {
+                $('#encryption-key-group').hide();
+            }
+        }).change();
+        
+        // Save settings
+        $('#save-settings').click(function() {
+            // Collect settings
+            const settings = {
+                enabled: $('#memory-enabled').is(':checked'),
+                autoExtract: $('#auto-extract').is(':checked'),
+                contextWindow: parseInt($('#context-window').val()),
+                relationshipTracking: $('#relationship-tracking').is(':checked'),
+                hierarchicalMemory: $('#hierarchical-memory').is(':checked'),
+                memoryDepth: parseInt($('#memory-depth').val()),
+                sentimentAnalysis: $('#sentiment-analysis').is(':checked'),
+                privacyEnabled: $('#privacy-enabled').is(':checked'),
+                encryptionKey: $('#encryption-key').val()
+            };
+            
+            // Collect user profile
+            const userProfile = {
+                basicInfo: {
+                    name: $('#user-name').val(),
+                    age: $('#user-age').val(),
+                    gender: $('#user-gender').val(),
+                    location: $('#user-location').val()
+                },
+                preferences: {
+                    interests: $('#user-interests').val(),
+                    likes: $('#user-likes').val(),
+                    dislikes: $('#user-dislikes').val()
+                },
+                background: {
+                    description: $('#user-background').val(),
+                    goals: $('#user-goals').val()
+                }
+            };
+            
+            // Save settings
+            if (window.memoryEnhancerPlugin) {
+                window.memoryEnhancerPlugin.onSettingsChange(settings);
+                window.memoryEnhancerPlugin.memoryEnhancer.userProfile = userProfile;
+                window.memoryEnhancerPlugin.memoryEnhancer.saveUserProfile();
+                
+                toastr.success('Memory Enhancer settings saved');
+            }
+        });
+        
+        // Reset settings
+        $('#reset-settings').click(function() {
+            if (confirm('Are you sure you want to reset all settings to default?')) {
+                // Reset to default settings
+                $('#memory-enabled').prop('checked', true);
+                $('#auto-extract').prop('checked', true);
+                $('#context-window').val(10);
+                $('#context-window-display').text(10);
+                $('#relationship-tracking').prop('checked', true);
+                $('#hierarchical-memory').prop('checked', true);
+                $('#memory-depth').val(3);
+                $('#memory-depth-display').text(3);
+                $('#sentiment-analysis').prop('checked', true);
+                $('#privacy-enabled').prop('checked', false);
+                $('#encryption-key').val('');
+                
+                toastr.info('Settings reset to default. Click Save to apply changes.');
+            }
+        });
+        
+        // Export data
+        $('#export-data').click(function() {
+            if (window.memoryEnhancerPlugin) {
+                const exportData = {
+                    settings: window.memoryEnhancerPlugin.memoryEnhancer.settings,
+                    userProfile: window.memoryEnhancerPlugin.memoryEnhancer.userProfile,
+                    extractedEntities: window.memoryEnhancerPlugin.memoryEnhancer.extractedEntities,
+                    relationships: window.memoryEnhancerPlugin.memoryEnhancer.relationships
+                };
+                
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = 'memory_enhancer_export.json';
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+                
+                toastr.success('Data exported successfully');
+            }
+        });
+        
+        // Import data
+        $('#import-data').click(function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const importData = JSON.parse(event.target.result);
+                        
+                        if (window.memoryEnhancerPlugin) {
+                            if (importData.settings) {
+                                window.memoryEnhancerPlugin.onSettingsChange(importData.settings);
+                            }
+                            
+                            if (importData.userProfile) {
+                                window.memoryEnhancerPlugin.memoryEnhancer.userProfile = importData.userProfile;
+                            }
+                            
+                            if (importData.extractedEntities) {
+                                window.memoryEnhancerPlugin.memoryEnhancer.extractedEntities = importData.extractedEntities;
+                            }
+                            
+                            if (importData.relationships) {
+                                window.memoryEnhancerPlugin.memoryEnhancer.relationships = importData.relationships;
+                            }
+                            
+                            // Save imported data
+                            window.memoryEnhancerPlugin.memoryEnhancer.saveSettings();
+                            window.memoryEnhancerPlugin.memoryEnhancer.saveUserProfile();
+                            
+                            // Reload settings page
+                            location.reload();
+                            
+                            toastr.success('Data imported successfully');
+                        }
+                    } catch (error) {
+                        console.error('Error importing data:', error);
+                        toastr.error('Failed to import data. Invalid format.');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        });
+        
+        // Clear data
+        $('#clear-data').click(function() {
+            if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
+                if (window.memoryEnhancerPlugin) {
+                    // Clear data
+                    window.memoryEnhancerPlugin.memoryEnhancer.userProfile = {
+                        basicInfo: {},
+                        preferences: {},
+                        background: {}
+                    };
+                    window.memoryEnhancerPlugin.memoryEnhancer.extractedEntities = [];
+                    window.memoryEnhancerPlugin.memoryEnhancer.relationships = {};
+                    
+                    // Reset database
+                    window.memoryEnhancerPlugin.memoryEnhancer.db.exec('DELETE FROM user_profile');
+                    window.memoryEnhancerPlugin.memoryEnhancer.db.exec('DELETE FROM entities');
+                    window.memoryEnhancerPlugin.memoryEnhancer.db.exec('DELETE FROM relationships');
+                    window.memoryEnhancerPlugin.memoryEnhancer.db.exec('DELETE FROM vector_emotions');
+                    
+                    // Reload settings page
+                    location.reload();
+                    
+                    toastr.success('All data cleared successfully');
+                }
+            }
+        });
+        
+        // Populate entity list
+        function populateEntityList() {
+            const entities = window.memoryEnhancerPlugin.memoryEnhancer.extractedEntities || [];
+            const entityList = $('#entity-list');
+            
+            entityList.empty();
+            
+            if (entities.length === 0) {
+                entityList.append('<div class="memory-enhancer-empty-state">No entities extracted yet</div>');
+                return;
+            }
+            
+            // Group entities by type
+            const groupedEntities = {};
+            entities.forEach(entity => {
+                if (!groupedEntities[entity.type]) {
+                    groupedEntities[entity.type] = [];
+                }
+                
+                // Avoid duplicates
+                if (!groupedEntities[entity.type].find(e => e.value === entity.value)) {
+                    groupedEntities[entity.type].push(entity);
+                }
+            });
+            
+            // Create entity list
+            for (const type in groupedEntities) {
+                const typeGroup = $(`<div class="memory-enhancer-entity-group">
+                    <div class="memory-enhancer-entity-group-header">${type}</div>
+                    <div class="memory-enhancer-entity-group-body"></div>
+                </div>`);
+                
+                const groupBody = typeGroup.find('.memory-enhancer-entity-group-body');
+                
+                groupedEntities[type].forEach(entity => {
+                    const entityItem = $(`<div class="memory-enhancer-entity-item">
+                        <span class="memory-enhancer-entity-value">${entity.value}</span>
+                        <span class="memory-enhancer-entity-actions">
+                            <button class="memory-enhancer-entity-action edit" data-id="${entity.id}">Edit</button>
+                            <button class="memory-enhancer-entity-action delete" data-id="${entity.id}">Delete</button>
+                        </span>
+                    </div>`);
+                    
+                    groupBody.append(entityItem);
+                });
+                
+                entityList.append(typeGroup);
+            }
+            
+            // Handle entity actions
+            $('.memory-enhancer-entity-action.edit').click(function() {
+                const entityId = $(this).data('id');
+                // Implement entity editing
+                alert('Edit entity: ' + entityId);
+            });
+            
+            $('.memory-enhancer-entity-action.delete').click(function() {
+                const entityId = $(this).data('id');
+                if (confirm('Are you sure you want to delete this entity?')) {
+                    // Implement entity deletion
+                    if (window.memoryEnhancerPlugin) {
+                        window.memoryEnhancerPlugin.memoryEnhancer.db.exec(`DELETE FROM entities WHERE id = ${entityId}`);
+                        window.memoryEnhancerPlugin.memoryEnhancer.extractedEntities = 
+                            window.memoryEnhancerPlugin.memoryEnhancer.extractedEntities.filter(e => e.id !== entityId);
+                        
+                        populateEntityList();
+                        toastr.success('Entity deleted successfully');
+                    }
+                }
+            });
+        }
+    });
+</script>
